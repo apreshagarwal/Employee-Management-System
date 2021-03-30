@@ -55,6 +55,16 @@ public class Main {
         Employee.deleteEmployee();
     }
 
+    private static void raiseEmployeeSalary() {
+        System.out.println();
+        if (Employee.getEmployees().size() == 0) {
+            System.out.println("ERROR: Register at least one employee to use this operation.");
+            System.out.print("Please enter a choice (SUGGESTED: 1): ");
+            return;
+        }
+        Employee.raiseEmployeeSalary();
+    }
+
     private static void displayEmployees() {
         System.out.println();
         if (Employee.getEmployees().size() == 0) {
@@ -93,6 +103,9 @@ public class Main {
                     break;
 
                 case "4":
+                    raiseEmployeeSalary();
+                    System.out.println();
+                    displayMenu();
                     break;
 
                 case "5":

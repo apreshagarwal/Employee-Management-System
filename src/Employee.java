@@ -5,6 +5,8 @@ public class Employee {
     private final static int AGE_MIN_LIMIT;
     private final static int AGE_MAX_LIMIT;
     private final static int MAX_REGISTRATION_LIMIT;
+    private static final int RAISE_MIN_LIMIT = 5000;
+    private static final int RAISE_MAX_LIMIT = 50000;
     private static int LAST_REGISTERED_ID;
     private final static String COMPANY_CODE;
     private static final HashMap<String, Integer> designationsAndSalaries;
@@ -182,6 +184,30 @@ public class Employee {
             break;
         }
         return e;
+    }
+
+    public static void raiseEmployeeSalary() {
+        Scanner STDIN = new Scanner(System.in);
+        Employee e = getEmployee();
+        System.out.print("Please enter the raise: ");
+        int raise;
+        while (true) {
+            try {
+                raise = Integer.parseInt(STDIN.nextLine().replaceAll(",", ""));
+                if (raise < RAISE_MIN_LIMIT || raise > RAISE_MAX_LIMIT) {
+                    System.out.printf("ERROR: ₹%d is not within the set limit. Please make sure the raise is between ₹%,d and ₹%,d.%n", raise, RAISE_MIN_LIMIT, RAISE_MAX_LIMIT);
+                    System.out.print("Please enter the raise: ");
+                    continue;
+                }
+            } catch (Exception exception) {
+                System.out.println("ERROR: Invalid value for salary.");
+                System.out.print("Please enter a valid value: ");
+                continue;
+            }
+            break;
+        }
+        e.salary += raise;
+        System.out.printf("The salary of %s has been raised by ₹%,d.\n", e.name, raise);
     }
 
     public String getEmployeeID() {
