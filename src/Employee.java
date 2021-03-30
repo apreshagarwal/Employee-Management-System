@@ -155,7 +155,6 @@ public class Employee implements Serializable {
     }
 
     public static void deleteEmployee() {
-        Scanner STDIN = new Scanner(System.in);
         Employee e = getEmployee();
         employees.remove(e);
         namesSet.remove(e.name);

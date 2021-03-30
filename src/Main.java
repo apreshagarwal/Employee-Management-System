@@ -75,6 +75,56 @@ public class Main {
         Employee.displayEmployees();
     }
 
+    private static void exportData() {
+        System.out.println();
+        if (Employee.getEmployees().size() == 0) {
+            System.out.println("ERROR: Register at least one employee to use this operation.");
+            System.out.print("Please enter a choice (SUGGESTED: 1): ");
+            return;
+        }
+        Scanner STDIN = new Scanner(System.in);
+        System.out.println("1. Export to Text");
+        System.out.println("2. Export to CSV");
+        System.out.println("3. Export to JSON");
+        System.out.print("Please enter your choice: ");
+        String choice;
+        EXPORT: while (true) {
+            choice = STDIN.nextLine();
+            switch (choice) {
+                case "1":
+                    System.out.print("Exporting data... ");
+                    if (FileExport.exportToText(Employee.getEmployees())) {
+                        System.out.println("successful.");
+                    } else {
+                        System.out.println("failed.");
+                    }
+                    break EXPORT;
+
+                case "2":
+                    System.out.print("Exporting data... ");
+                    if (FileExport.exportToCSV(Employee.getEmployees())) {
+                        System.out.println("successful.");
+                    } else {
+                        System.out.println("failed.");
+                    }
+                    break EXPORT;
+
+                case "3":
+                    System.out.print("Exporting data... ");
+                    if (FileExport.exportToJSON(Employee.getEmployees())) {
+                        System.out.println("successful.");
+                    } else {
+                        System.out.println("failed.");
+                    }
+                    break EXPORT;
+
+                default:
+                    System.out.println("ERROR: Sorry, this is an invalid input. Please try again.");
+                    System.out.print("Please enter your choice: ");
+            }
+        }
+    }
+
     private static void exitApplication() {
         System.out.println();
         if (Employee.getEmployees().size() > 0) {
@@ -134,6 +184,9 @@ public class Main {
                     break;
 
                 case "6":
+                    exportData();
+                    System.out.println();
+                    displayMenu();
                     break;
 
                 case "7":
