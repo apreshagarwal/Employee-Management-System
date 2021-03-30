@@ -22,7 +22,7 @@ public class Main {
         System.out.print("Please enter your choice: ");
     }
 
-    public static void menuOption1(Scanner STDIN) {
+    public static void registerEmployee(Scanner STDIN) {
         String choice;
         boolean isNotDone = Employee.registerEmployee();
         while (isNotDone) {
@@ -45,6 +45,16 @@ public class Main {
         }
     }
 
+    private static void displayEmployees() {
+        System.out.println();
+        if (Employee.getEmployees().size() == 0) {
+            System.out.println("ERROR: Register at least one employee to use this operation.");
+            System.out.print("Please enter a choice (SUGGESTED: 1): ");
+            return;
+        }
+        Employee.displayEmployees();
+    }
+
     public static void main(String[] args) {
         Scanner STDIN = new Scanner(System.in);
 
@@ -59,14 +69,20 @@ public class Main {
             choice = STDIN.nextLine();
             switch (choice) {
                 case "1":
-                    menuOption1(STDIN);
+                    registerEmployee(STDIN);
                     displayMenu();
                     break;
 
                 case "2":
                 case "3":
                 case "4":
+
                 case "5":
+                    displayEmployees();
+                    System.out.println();
+                    displayMenu();
+                    break;
+
                 case "6":
                     break;
 

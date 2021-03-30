@@ -8,6 +8,7 @@ public class Employee {
     private static int LAST_REGISTERED_ID;
     private final static String COMPANY_CODE;
     private static final HashMap<String, Integer> designationsAndSalaries;
+    private static final LinkedHashMap<String, Integer> displayColumns;
     private static final Set<String> namesSet = new HashSet<>();
     private final String employeeID;
     private final String name;
@@ -26,6 +27,13 @@ public class Employee {
         designationsAndSalaries.put("Manager", 30000);
         designationsAndSalaries.put("Developer", 20000);
         designationsAndSalaries.put("Tester", 25000);
+        displayColumns = new LinkedHashMap<>();
+        displayColumns.put("", 6);
+        displayColumns.put("EMPLOYEE ID", 11);
+        displayColumns.put("EMPLOYEE NAME", 0);
+        displayColumns.put("AGE", 3);
+        displayColumns.put("DESIGNATION", 11);
+        displayColumns.put("SALARY ", 10);
     }
 
     public Employee(String employeeID, String name, String designation, int age, int salary) {
@@ -76,6 +84,9 @@ public class Employee {
             }
             name = name.trim();
             namesSet.add(name);
+            if (displayColumns.get("EMPLOYEE NAME") < name.length()) {
+                displayColumns.replace("EMPLOYEE NAME", name.length());
+            }
             break;
         }
 
@@ -126,6 +137,18 @@ public class Employee {
         return true;
     }
 
+    public static void displayEmployees() {
+        printTableDivider();
+        for (String column : displayColumns.keySet())
+            System.out.format("| %-".concat(displayColumns.get(column).toString()).concat("s "), column);
+        System.out.printf("|%n");
+        printTableDivider();
+        int count = 0;
+        for (Employee employee : employees)
+            System.out.format("| %-6s | %-11s | %-" + displayColumns.get("EMPLOYEE NAME") + "s | %-3d | %-11s | ₹%-,9d |%n", (++count < 10) ? "0" + count : count, employee.employeeID, employee.name, employee.age, employee.designation, employee.salary);
+        printTableDivider();
+    }
+
     public String getEmployeeID() {
         return employeeID;
     }
@@ -148,5 +171,15 @@ public class Employee {
 
     public static ArrayList<Employee> getEmployees() {
         return employees;
+    }
+
+    private static void printTableDivider() {
+        System.out.print("+");
+        for (String columns : displayColumns.keySet()) {
+            int padding = displayColumns.get(columns) + 2;
+            for (int i = 0; i < padding; ++i) System.out.print("-");
+            System.out.print("+");
+        }
+        System.out.println();
     }
 }
