@@ -31,7 +31,7 @@ public class FileExport {
             fileWriter = new FileWriter(FILENAME.concat(EXTENSION));
             fileWriter.write(String.format("%s,%s,%s,%s,%s%n", "Employee ID", "Full Name", "Age", "Designation", "Current Salary"));
             for (Employee e: employees) {
-                fileWriter.write(String.format("%s,%s,%d,%s,%,d%n", e.getEmployeeID(), e.getName(), e.getAge(), e.getDesignation(), e.getSalary()));
+                fileWriter.write(String.format("%s,%s,%d,%s,%d%n", e.getEmployeeID(), e.getName(), e.getAge(), e.getDesignation(), e.getSalary()));
             }
             fileWriter.close();
             return true;
