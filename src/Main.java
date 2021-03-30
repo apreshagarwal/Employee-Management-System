@@ -95,8 +95,13 @@ public class Main {
         System.out.println(WELCOME_TEXT);
         System.out.printf("GitHub: %s %n", GITHUB_LINK);
 
+        if (Employee.loadData()) {
+            System.out.println("Loaded.");
+        } else {
+            System.out.println("No data found.");
+        }
+
         displayMenu();
-        boolean shouldExit = false;
         String choice;
 
         MENU: do {

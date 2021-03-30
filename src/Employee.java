@@ -2,6 +2,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Employee implements Serializable {
+    private static final long serialVersionUID = 3112462648708808454L;
     private static final ArrayList<Employee> employees;
     private final static int AGE_MIN_LIMIT;
     private final static int AGE_MAX_LIMIT;
@@ -25,7 +26,8 @@ public class Employee implements Serializable {
         MAX_REGISTRATION_LIMIT = 10;
         LAST_REGISTERED_ID = 0;
         COMPANY_CODE = "WY";
-        employees = new ArrayList<>();
+        System.out.print("Loading Data... ");
+        employees = DeserializeEmployee.deserialize();
         designationsAndSalaries = new HashMap<>();
         designationsAndSalaries.put("Manager", 30000);
         designationsAndSalaries.put("Developer", 20000);
@@ -213,6 +215,21 @@ public class Employee implements Serializable {
 
     public static boolean saveData() {
         return SerializeEmployee.serialize(employees);
+    }
+
+    public static boolean loadData() {
+        if (employees.size() > 0) {
+
+            for (Employee e: employees) {
+                namesSet.add(e.name);
+                LAST_REGISTERED_ID = Integer.parseInt(e.employeeID.substring(2));
+                if (displayColumns.get("EMPLOYEE NAME") < e.name.length()) {
+                    displayColumns.replace("EMPLOYEE NAME", e.name.length());
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     public String getEmployeeID() {
