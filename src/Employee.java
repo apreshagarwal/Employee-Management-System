@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class Employee {
+public class Employee implements Serializable {
     private static final ArrayList<Employee> employees;
     private final static int AGE_MIN_LIMIT;
     private final static int AGE_MAX_LIMIT;
@@ -208,6 +209,10 @@ public class Employee {
         }
         e.salary += raise;
         System.out.printf("The salary of %s has been raised by ₹%,d.\n", e.name, raise);
+    }
+
+    public static boolean saveData() {
+        return SerializeEmployee.serialize(employees);
     }
 
     public String getEmployeeID() {

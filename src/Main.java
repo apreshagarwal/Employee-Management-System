@@ -75,6 +75,20 @@ public class Main {
         Employee.displayEmployees();
     }
 
+    private static void exitApplication() {
+        System.out.println();
+        if (Employee.getEmployees().size() > 0) {
+            System.out.print("Saving the data... ");
+            if (Employee.saveData()) {
+                System.out.println("Saved.");
+            } else {
+                System.out.println("Not saved.");
+            }
+        }
+        System.out.println("Exiting the application...");
+        System.out.println("*** Thank you for using the Employee Management System ***");
+    }
+
     public static void main(String[] args) {
         Scanner STDIN = new Scanner(System.in);
 
@@ -119,9 +133,7 @@ public class Main {
 
                 case "7":
                     STDIN.close();
-                    System.out.println();
-                    System.out.println("Exiting the application...");
-                    System.out.println("*** Thank you for using the Employee Management System ***");
+                    exitApplication();
                     break MENU;
 
                 default:
