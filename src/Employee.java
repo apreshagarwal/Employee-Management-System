@@ -149,6 +149,41 @@ public class Employee {
         printTableDivider();
     }
 
+    public static void deleteEmployee() {
+        Scanner STDIN = new Scanner(System.in);
+        Employee e = getEmployee();
+        employees.remove(e);
+        namesSet.remove(e.name);
+        System.out.printf("Employee \"%s\" has been removed from the system.%n", e.name);
+    }
+
+    private static Employee getEmployee() {
+        Scanner STDIN = new Scanner(System.in);
+        Employee e = null;
+        System.out.print("Please enter the Employee ID: ");
+        while (true) {
+            String employeeID = STDIN.nextLine().trim();
+            if (!employeeID.startsWith(COMPANY_CODE) || !employeeID.matches(COMPANY_CODE + "(\\d{2})")) {
+                System.out.println("ERROR: The Employee ID is INVALID.");
+                System.out.print("Please enter the Employee ID again: ");
+                continue;
+            }
+            for (Employee employee : employees) {
+                if (employee.employeeID.equals(employeeID)) {
+                    e = employee;
+                    break;
+                }
+            }
+            if (e == null) {
+                System.out.println("ERROR: The Employee is not registered.");
+                System.out.print("Please enter the valid Employee ID: ");
+                continue;
+            }
+            break;
+        }
+        return e;
+    }
+
     public String getEmployeeID() {
         return employeeID;
     }
